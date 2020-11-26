@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    kosi (1.2.0)
+      unicode-display_width (~> 1.0)
+      unicode-emoji (~> 1.1)
+    unicode-display_width (1.7.0)
+    unicode-emoji (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  kosi
+
+BUNDLED WITH
+   2.1.4
