@@ -41,6 +41,6 @@ while !end_shopping do
 end
 
 puts "決済を行います"
-customer.cart.checkout
+customer.cart.purchase
 
 puts "終了"

@@ -19,11 +19,18 @@ class Cart
     contents.sum{|content| content.item_price * content.quantity }
   end
 
-  def checkout
+  def purchase
     return if empty_contents?
     print_contents
     puts "購入を確定しますか？(yes/no)"
-    purchase if gets.chomp == "yes"
+    if gets.chomp == "yes"
+      contents.each do |content|
+        owner.wallet.withdraw_to(
+          content.item_price * content.quantity,
+          content.owner.wallet
+        )
+      end
+    end
   end
 
   def print_contents
@@ -40,15 +47,6 @@ class Cart
       end
     )
     puts "合計金額：#{total_amount}"
-  end
-
-  def purchase
-    contents.each do |content|
-      owner.wallet.withdraw_to(
-        content.item_price * content.quantity,
-        content.owner.wallet
-      )
-    end
   end
 
   private
