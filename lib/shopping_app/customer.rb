@@ -21,11 +21,7 @@ class Customer < User
     quantity = gets.to_i
     cart.add(items[number], quantity)
     puts "カートの中身を確認しますか？(yes/no)"
-    check_cart_contents = gets.chomp == "yes"
-    if check_cart_contents
-      cart.print_contents
-      check_cart_contents = false
-    end
+    cart.print_contents if gets.chomp == "yes"
   end
 
   private
