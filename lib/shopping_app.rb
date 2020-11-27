@@ -4,25 +4,28 @@ require_relative "shopping_app/customer"
 
 a_store = Store.new("Aストア")
 [
-  Item.new("CPU", 40830, a_store),
-  Item.new("メモリー", 13880, a_store),
-  Item.new("マザーボード", 28980, a_store),
-  Item.new("電源ユニット", 8980, a_store),
+  Item.new("CPU", 40830),
+  Item.new("メモリー", 13880),
+  Item.new("マザーボード", 28980),
+  Item.new("電源ユニット", 8980),
 ].each{|item| a_store.stock(item) }
 
 b_store = Store.new("Bストア")
 [
-  Item.new("PCケース", 8727, b_store),
-  Item.new("3.5インチHDD", 10980, b_store),
-  Item.new("2.5インチSSD", 13370, b_store),
-  Item.new("M.2 SSD", 12980, b_store),
+  Item.new("PCケース", 8727),
+  Item.new("3.5インチHDD", 10980),
+  Item.new("2.5インチSSD", 13370),
+  Item.new("M.2 SSD", 12980),
 ].each{|item| b_store.stock(item) }
 
 c_store = Store.new("Cストア")
 [
-  Item.new("CPUクーラー", 13400, c_store),
-  Item.new("グラフィックボード", 23800, c_store),
+  Item.new("CPUクーラー", 13400),
+  Item.new("グラフィックボード", 23800),
 ].each{|item| c_store.stock(item) }
+
+
+binding.irb
 
 items = (a_store.items + b_store.items + c_store.items).flatten
 

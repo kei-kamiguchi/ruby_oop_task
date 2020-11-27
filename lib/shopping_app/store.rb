@@ -8,6 +8,7 @@ class Store
   end
 
   def stock(item)
+    item.owner = self
     items << item
   end
 end

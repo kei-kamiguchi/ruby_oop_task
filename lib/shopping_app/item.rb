@@ -1,8 +1,8 @@
 class Item
   attr_accessor :name, :price, :owner
-  def initialize(name, price, owner)
+  def initialize(name, price)
     @name = name
     @price = price
-    @owner = owner
+    @owner = nil
   end
 end
