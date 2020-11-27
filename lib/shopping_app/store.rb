@@ -1,18 +1,13 @@
 require_relative "wallet"
+require_relative "item_manager"
 
 class Store
-  attr_reader :name, :items, :wallet
+  include ItemManager
+
+  attr_reader :name, :wallet
 
   def initialize(name)
     @name = name
-    @items = []
     @wallet = Wallet.new(self)
   end
-
-  def stock(item)
-    item.owner = self
-    items << item
-  end
 end
-
-@store = Store.new("DICストア")

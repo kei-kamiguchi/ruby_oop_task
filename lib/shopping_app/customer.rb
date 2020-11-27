@@ -1,9 +1,12 @@
 require_relative "wallet"
 require_relative "cart"
 require_relative "user"
+require_relative "item_manager"
 require "kosi"
 
 class Customer < User
+  include ItemManager
+
   attr_reader :name, :wallet, :cart
 
   def initialize(name)
