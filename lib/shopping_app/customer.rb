@@ -1,8 +1,8 @@
+require "kosi"
 require_relative "wallet"
 require_relative "cart"
 require_relative "user"
 require_relative "item_manager"
-require "kosi"
 
 class Customer < User
   include ItemManager
@@ -15,20 +15,33 @@ class Customer < User
     @cart = Cart.new(self)
   end
 
-  def shopping(items)
-    return if items.empty?
-    print_items(items)
+  def shopping(store)
+    return if store.items.empty?
+    store.print_stock
     puts "商品番号を入力してください"
     number = gets.to_i
     puts "商品数量を入力してください"
     quantity = gets.to_i
+    store.stock.find{|stock| stock[:index] == number }[:items][0..quantity-1]
     cart.add(items[number], quantity)
     puts "カートの中身を確認しますか？(yes/no)"
     cart.print_contents if gets.chomp == "yes"
   end
 
+  # def shopping(items)
+  #   return if items.empty?
+  #   print_items(items)
+  #   puts "商品番号を入力してください"
+  #   number = gets.to_i
+  #   puts "商品数量を入力してください"
+  #   quantity = gets.to_i
+  #   cart.add(items[number], quantity)
+  #   puts "カートの中身を確認しますか？(yes/no)"
+  #   cart.print_contents if gets.chomp == "yes"
+  # end
+
   def checkout
-    return if cart.contents.empty? 
+    return if cart.contents.empty?
     cart.print_contents
     puts "購入を確定しますか？(yes/no)"
     if gets.chomp == "yes"
