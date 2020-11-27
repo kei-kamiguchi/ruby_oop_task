@@ -7,7 +7,7 @@ class Store
     @wallet = Wallet.new(self)
   end
 
-  def stock_item(item)
+  def stock(item)
     items << item
   end
 end
