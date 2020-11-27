@@ -24,6 +24,20 @@ class Customer < User
     cart.print_contents if gets.chomp == "yes"
   end
 
+  def checkout
+    return if cart.contents.empty? 
+    cart.print_contents
+    puts "購入を確定しますか？(yes/no)"
+    if gets.chomp == "yes"
+      cart.contents.each do |content|
+        wallet.withdraw_to(
+          content.item_price * content.quantity,
+          content.owner.wallet
+        )
+      end
+    end
+  end
+
   private
 
   def print_items(items)

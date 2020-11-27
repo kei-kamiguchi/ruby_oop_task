@@ -40,6 +40,6 @@ while !end_shopping do
   end_shopping = gets.chomp == "yes"
 end
 
-customer.cart.purchase
+customer.checkout
 
 puts "終了"
