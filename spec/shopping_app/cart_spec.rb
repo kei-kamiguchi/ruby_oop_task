@@ -3,7 +3,8 @@ require "spec_helper"
 RSpec.describe Cart do
   let(:customer) { build(:customer) }
   let(:cart) { build(:cart, owner: customer) }
-  let(:item) { build(:item) }
+  let(:seller) { build(:seller) }
+  let(:item) { build(:item, owner: seller) }
 
   it "ItemManagerをincludeしていること" do
     expect(Customer.included_modules.include?(ItemManager)).to eq true
@@ -44,6 +45,28 @@ RSpec.describe Cart do
     it "@contentsに格納されているItemオブジェクトの値段の合計を返すこと" do
       cart.add(item)
       expect(cart.total_amount).to eq item.price
+    end
+  end
+
+  describe "#check_out" do
+    let(:balance) { 99999999999 }
+    before do
+      customer.wallet.deposit(balance)
+    end
+    it "購入処理を行い、価値の移転がされること。そしてitemsが空になること" do
+      # check_out前
+      expect(customer.wallet.balance == balance).to eq true
+      expect(item.owner == seller).to eq true
+      expect(seller.wallet.balance == 0).to eq true
+      
+      cart.add(item)
+      cart.check_out
+
+      # check_out後
+      expect(customer.wallet.balance == balance - item.price).to eq true 
+      expect(item.owner == customer).to eq true
+      expect(seller.wallet.balance == item.price).to eq true 
+      expect(cart.items == []).to eq true 
     end
   end
 end

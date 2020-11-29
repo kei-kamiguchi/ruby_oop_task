@@ -45,6 +45,9 @@ while !end_shopping do
 end
 
 puts "購入を確定しますか？(yes/no)"
-customer.check_out if gets.chomp == "yes"
+customer.cart.check_out if gets.chomp == "yes"
+
+binding.irb
+
 
 puts "終了"

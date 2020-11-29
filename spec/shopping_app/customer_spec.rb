@@ -42,27 +42,5 @@ RSpec.describe Customer do
       expect(customer.methods.include?(:cart=)).to eq false
     end
   end
-
-  describe "#check_out" do
-    let(:balance) { 99999999999 }
-    before do
-      customer.wallet.deposit(balance)
-      customer.cart
-    end
-    it "購入処理を行い、価値の移転がされること" do
-      # check_out前
-      expect(customer.wallet.balance == balance).to eq true
-      expect(item.owner == seller).to eq true
-      expect(seller.wallet.balance == 0).to eq true
-      
-      customer.cart.add(item)
-      customer.check_out
-
-      # check_out後
-      expect(customer.wallet.balance == balance - item.price).to eq true 
-      expect(item.owner == customer).to eq true 
-      expect(seller.wallet.balance == item.price).to eq true 
-    end
-  end
   
 end

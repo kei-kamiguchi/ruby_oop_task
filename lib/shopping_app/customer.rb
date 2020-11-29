@@ -11,13 +11,4 @@ class Customer < User
     @cart = Cart.new(self)
   end
 
-  def check_out
-    return if wallet.balance < cart.total_amount
-    cart.items.each do |item|
-      item.owner.wallet.deposit(wallet.withdraw(item.price))
-      item.owner = self
-    end
-    cart.items.clear
-  end
-
 end
