@@ -8,9 +8,6 @@ RSpec.describe Customer do
   it "Userを継承していること" do
     expect(Customer.superclass).to eq User
   end
-  it "ItemManagerをincludeしていること" do
-    expect(Customer.included_modules.include?(ItemManager)).to eq true
-  end
 
   describe "#initialize" do
     it "@nameを持つこと" do

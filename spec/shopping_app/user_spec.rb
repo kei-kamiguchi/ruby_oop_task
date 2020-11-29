@@ -2,6 +2,11 @@ require "spec_helper"
 
 RSpec.describe User do
   let(:user) { build(:user) }
+
+  it "ItemManagerをincludeしていること" do
+    expect(Customer.included_modules.include?(ItemManager)).to eq true
+  end
+
   describe "#initialize" do
     it "@nameを持つこと" do
       expect(user.instance_variable_get(:@name)).to be_truthy

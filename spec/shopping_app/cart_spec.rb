@@ -5,6 +5,10 @@ RSpec.describe Cart do
   let(:cart) { build(:cart, owner: customer) }
   let(:item) { build(:item) }
 
+  it "ItemManagerをincludeしていること" do
+    expect(Customer.included_modules.include?(ItemManager)).to eq true
+  end
+
   describe "#initialize" do
     it "@ownerを持つこと" do
       expect(cart.instance_variable_get(:@owner)).to be_truthy

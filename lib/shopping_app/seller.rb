@@ -1,13 +1,14 @@
+require_relative "user"
 require_relative "wallet"
 require_relative "item_manager"
 
-class Seller
+class Seller < User
   include ItemManager
 
-  attr_reader :name, :wallet
+  attr_reader :wallet
 
   def initialize(name)
-    @name = name
+    super(name)
     @wallet = Wallet.new(self)
   end
 
