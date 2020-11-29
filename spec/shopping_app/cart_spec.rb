@@ -46,20 +46,22 @@ RSpec.describe Cart do
     let(:balance) { 99999999999 }
     before do
       customer.wallet.deposit(balance)
-    end
-    it "購入処理を行い、価値の移転がされること。そしてitemsが空になること" do
       # check_out前
       expect(customer.wallet.balance == balance).to eq true
       expect(item.owner == seller).to eq true
       expect(seller.wallet.balance == 0).to eq true
-      
+
       cart.add(item)
       cart.check_out
-
-      # check_out後
+    end
+    it "購入金がカートのオーナーのウォレットからアイテムのオーナーのウォレットに移されること" do
       expect(customer.wallet.balance == balance - item.price).to eq true 
-      expect(item.owner == customer).to eq true
       expect(seller.wallet.balance == item.price).to eq true 
+    end
+    it "アイテムのオーナー権限が、カートのオーナーに移されること" do
+      expect(item.owner == customer).to eq true
+    end
+    it "カートの中身（items）が空になること" do
       expect(cart.items == []).to eq true 
     end
   end
