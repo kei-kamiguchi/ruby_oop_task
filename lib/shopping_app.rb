@@ -14,37 +14,37 @@ seller = Seller.new("DICストア")
 10.times{ Item.new("CPUクーラー", 13400, seller) }
 10.times{ Item.new("グラフィックボード", 23800, seller) }
 
-puts "あなたの名前を教えてください"
+puts "🤖 あなたの名前を教えてください"
 customer = Customer.new(gets.chomp)
 
-puts "ウォレットにチャージする金額を入力にしてください"
+puts "🏧 ウォレットにチャージする金額を入力にしてください"
 customer.wallet.deposit(gets.chomp.to_i)
 
-puts "ショッピングを開始します"
+puts "🛍️ ショッピングを開始します"
 end_shopping = false
 while !end_shopping do
   puts "📜 商品リスト"
   seller.items_list
 
-  puts "商品番号を入力してください"
+  puts "️️⛏ 商品番号を入力してください"
   number = gets.to_i
 
-  puts "商品数量を入力してください"
+  puts "⛏ 商品数量を入力してください"
   quantity = gets.to_i
 
   items = seller.pick_items(number, quantity)
 
   items&.each{|item| customer.cart.add(item) }
 
-  puts "カートの中身"
+  puts "🛒 カートの中身"
   customer.cart.items_list
-  puts "合計金額: #{customer.cart.total_amount}"
+  puts "🤑 合計金額: #{customer.cart.total_amount}"
 
-  puts "買い物を終了しますか？(yes/no)"
+  puts "😭 買い物を終了しますか？(yes/no)"
   end_shopping = gets.chomp == "yes"
 end
 
-puts "購入を確定しますか？(yes/no)"
+puts "💸 購入を確定しますか？(yes/no)"
 customer.cart.check_out if gets.chomp == "yes"
 
-puts "終了"
+puts "🎉 終了"
