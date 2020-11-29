@@ -3,6 +3,9 @@ require "spec_helper"
 RSpec.describe Item do
   let(:item) { build(:item) }
 
+  it "Ownableをincludeしていること" do
+    expect(Item.included_modules.include?(Ownable)).to eq true
+  end
   it "@@instancesを持つこと" do
     expect(Item.class_variable_get(:@@instances)).to be_truthy
   end

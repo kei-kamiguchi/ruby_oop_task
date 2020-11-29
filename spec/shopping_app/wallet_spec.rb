@@ -3,23 +3,16 @@ require "spec_helper"
 RSpec.describe Wallet do
   let(:wallet){ build(:wallet, owner: build(:seller)) }
 
+  it "Ownableをincludeしていること" do
+    expect(Wallet.included_modules.include?(Ownable)).to eq true
+  end
+
   describe "#initialize" do
     it "@ownerを持つこと" do
       expect(wallet.instance_variable_get(:@owner)).to be_truthy
     end
     it "初期値が0の@balanceを持つこと" do
       expect(wallet.instance_variable_get(:@balance)).to eq 0
-    end
-  end
-
-  describe "#owner" do
-    let(:wallet){ build(:wallet, owner: owner) }
-    let(:owner) { build(:customer) }
-    it "owner属性に定義されているオブジェクトを返すこと" do
-      expect(wallet.owner).to eq owner
-    end
-    it "'#owner='は定義されていないこと（attr_readerを使っていること）" do
-      expect(wallet.methods.include?(:owner=)).to eq false
     end
   end
 

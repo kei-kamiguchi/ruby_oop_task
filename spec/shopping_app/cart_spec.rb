@@ -7,7 +7,10 @@ RSpec.describe Cart do
   let(:item) { build(:item, owner: seller) }
 
   it "ItemManagerをincludeしていること" do
-    expect(Customer.included_modules.include?(ItemManager)).to eq true
+    expect(Cart.included_modules.include?(ItemManager)).to eq true
+  end
+  it "Ownableをincludeしていること" do
+    expect(Cart.included_modules.include?(Ownable)).to eq true
   end
 
   describe "#initialize" do
@@ -16,15 +19,6 @@ RSpec.describe Cart do
     end
     it "@contentsを持つこと" do
       expect(cart.instance_variable_get(:@contents)).to be_truthy
-    end
-  end
-
-  describe "#owner" do
-    it "owner属性に定義されているオブジェクトを返すこと" do
-      expect(cart.owner).to eq customer
-    end
-    it "'#owner='は定義されていないこと（attr_readerを使っていること）" do
-      expect(cart.methods.include?(:owner=)).to eq false
     end
   end
 

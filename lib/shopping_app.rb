@@ -47,7 +47,4 @@ end
 puts "購入を確定しますか？(yes/no)"
 customer.cart.check_out if gets.chomp == "yes"
 
-binding.irb
-
-
 puts "終了"

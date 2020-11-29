@@ -1,11 +1,12 @@
+require_relative "ownable"
 require_relative "item_manager"
 
 class Cart
   include ItemManager
-  attr_reader :owner
+  include Ownable
 
   def initialize(owner)
-    @owner = owner
+    self.owner = owner
     @contents = []
   end
 

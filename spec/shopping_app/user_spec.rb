@@ -4,7 +4,7 @@ RSpec.describe User do
   let(:user) { build(:user) }
 
   it "ItemManagerをincludeしていること" do
-    expect(Customer.included_modules.include?(ItemManager)).to eq true
+    expect(User.included_modules.include?(ItemManager)).to eq true
   end
 
   describe "#initialize" do
