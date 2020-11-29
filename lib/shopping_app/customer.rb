@@ -6,7 +6,7 @@ require_relative "item_manager"
 class Customer < User
   include ItemManager
 
-  attr_reader :name, :wallet, :cart
+  attr_reader :wallet, :cart
 
   def initialize(name)
     super(name)
