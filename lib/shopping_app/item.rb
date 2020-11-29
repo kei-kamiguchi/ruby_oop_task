@@ -14,12 +14,12 @@ class Item
     @@instances << self
   end
 
-  def self.all
-    @@instances
-  end
-
   def label
     { name: name, price: price }
+  end
+
+  def self.all
+    @@instances
   end
 
 end
