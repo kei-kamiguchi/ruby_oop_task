@@ -17,8 +17,7 @@ class Customer < User
   def check_out
     return if wallet.balance < cart.total_amount
     cart.items.each do |item|
-      money_to_pay = wallet.withdraw(item.price)
-      item.owner.wallet.deposit(money_to_pay)
+      item.owner.wallet.deposit(wallet.withdraw(item.price))
       item.owner = self
     end
     cart.items.clear

@@ -1,17 +1,14 @@
 require_relative "store"
-require_relative "item_status"
 
 class Item
-  include ItemStatus
-
-  attr_accessor :name, :price, :status, :owner
+  attr_reader :name, :price, :quantity
+  attr_accessor :owner
 
   @@instances = []
 
   def initialize(name, price, owner=nil)
     @name = name
     @price = price
-    @status = ItemStatus::CREATED
     @owner = owner
 
     @@instances << self

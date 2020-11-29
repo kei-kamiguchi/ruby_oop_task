@@ -1,6 +1,5 @@
 require "kosi"
 require_relative "item"
-require_relative "item_status"
 
 module ItemManager
   def items
