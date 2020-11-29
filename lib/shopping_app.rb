@@ -47,4 +47,17 @@ end
 puts "💸 購入を確定しますか？(yes/no)"
 customer.cart.check_out if gets.chomp == "yes"
 
+puts "୨୧┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈結果┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈୨୧"
+puts "️🛍️ ️#{customer.name}の所有物"
+customer.items_list
+puts "😱👛 #{customer.name}のウォレット残高: #{customer.wallet.balance}"
+
+puts "📦 #{seller.name}の在庫状況"
+seller.items_list
+puts "😻👛 #{seller.name}のウォレット残高: #{seller.wallet.balance}"
+
+puts "🛒 カートの中身"
+customer.cart.items_list
+puts "🌚 合計金額: #{customer.cart.total_amount}"
+
 puts "🎉 終了"
