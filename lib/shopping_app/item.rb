@@ -1,5 +1,3 @@
-require_relative "store"
-
 class Item
   attr_reader :name, :price
   attr_accessor :owner

@@ -1,7 +1,7 @@
 require_relative "wallet"
 require_relative "item_manager"
 
-class Store
+class Seller
   include ItemManager
 
   attr_reader :name, :wallet
@@ -10,4 +10,5 @@ class Store
     @name = name
     @wallet = Wallet.new(self)
   end
+
 end

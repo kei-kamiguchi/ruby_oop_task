@@ -1,18 +1,18 @@
-require_relative "shopping_app/store"
+require_relative "shopping_app/seller"
 require_relative "shopping_app/item"
 require_relative "shopping_app/customer"
 
-store = Store.new("DICストア")
-10.times{ Item.new("CPU", 40830, store) }
-10.times{ Item.new("メモリー", 13880, store) }
-10.times{ Item.new("マザーボード", 28980, store) }
-10.times{ Item.new("電源ユニット", 8980, store) }
-10.times{ Item.new("PCケース", 8727, store) }
-10.times{ Item.new("3.5インチHDD", 10980, store) }
-10.times{ Item.new("2.5インチSSD", 13370, store) }
-10.times{ Item.new("M.2 SSD", 12980, store) }
-10.times{ Item.new("CPUクーラー", 13400, store) }
-10.times{ Item.new("グラフィックボード", 23800, store) }
+seller = Seller.new("DICストア")
+10.times{ Item.new("CPU", 40830, seller) }
+10.times{ Item.new("メモリー", 13880, seller) }
+10.times{ Item.new("マザーボード", 28980, seller) }
+10.times{ Item.new("電源ユニット", 8980, seller) }
+10.times{ Item.new("PCケース", 8727, seller) }
+10.times{ Item.new("3.5インチHDD", 10980, seller) }
+10.times{ Item.new("2.5インチSSD", 13370, seller) }
+10.times{ Item.new("M.2 SSD", 12980, seller) }
+10.times{ Item.new("CPUクーラー", 13400, seller) }
+10.times{ Item.new("グラフィックボード", 23800, seller) }
 
 puts "あなたの名前を教えてください"
 customer = Customer.new(gets.chomp)
@@ -24,7 +24,7 @@ puts "ショッピングを開始します"
 end_shopping = false
 while !end_shopping do
   puts "📜 商品リスト"
-  store.items_list
+  seller.items_list
 
   puts "商品番号を入力してください"
   number = gets.to_i
@@ -32,7 +32,7 @@ while !end_shopping do
   puts "商品数量を入力してください"
   quantity = gets.to_i
 
-  items = store.pick_items(number, quantity)
+  items = seller.pick_items(number, quantity)
 
   items&.each{|item| customer.cart.add(item) }
 

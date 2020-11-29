@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :store do
-    name { "store" }
+  factory :seller do
+    name { "seller" }
 
     initialize_with { new(name) }
   end

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe Wallet do
-  let(:wallet){ build(:wallet, owner: build(:store)) }
+  let(:wallet){ build(:wallet, owner: build(:seller)) }
 
   describe "#initialize" do
     it "@ownerを持つこと" do
