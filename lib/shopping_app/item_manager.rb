@@ -27,12 +27,6 @@ module ItemManager
     )
   end
 
-  def trigger_payment
-  end
-
-  def trigger_delivery
-  end
-
   private
 
   def stock
