@@ -54,14 +54,14 @@ RSpec.describe Cart do
       cart.add(item)
       cart.check_out
     end
-    it "購入金がカートのオーナーのウォレットからアイテムのオーナーのウォレットに移されること" do
+    it "カートの中身（Cart#items）のすべてのアイテムの購入金額が、カートのオーナーのウォレットからアイテムのオーナーのウォレットに移されること" do
       expect(customer.wallet.balance == balance - item.price).to eq true 
       expect(seller.wallet.balance == item.price).to eq true 
     end
-    it "アイテムのオーナー権限が、カートのオーナーに移されること" do
+    it "カートの中身（Cart#items）のすべてのアイテムのオーナー権限が、カートのオーナーに移されること" do
       expect(item.owner == customer).to eq true
     end
-    it "カートの中身（items）が空になること" do
+    it "カートの中身（Cart#items）が空になること" do
       expect(cart.items == []).to eq true 
     end
   end
