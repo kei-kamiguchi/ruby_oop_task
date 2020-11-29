@@ -36,8 +36,8 @@ while !end_shopping do
 
   items&.each{|item| customer.cart.add(item) }
 
-  puts "カートの中身を確認しますか？(yes/no)"
-  customer.cart.items_list if gets.chomp == "yes"
+  puts "カートの中身"
+  customer.cart.items_list
   puts "合計金額: #{customer.cart.total_amount}"
 
   puts "買い物を終了しますか？(yes/no)"
@@ -45,16 +45,9 @@ while !end_shopping do
 end
 
 puts "購入を確定しますか？(yes/no)"
-customer.cart.items_list
-puts "合計金額: #{customer.cart.total_amount}"
-
-if customer.check_out
-  puts "購入完了"
-  customer.items_list
-else
-  puts "購入を正常に完了できませんでした"
-end
+customer.check_out if gets.chomp == "yes"
 
 binding.irb
+
 
 puts "終了"
