@@ -1,4 +1,3 @@
-require "kosi"
 require_relative "wallet"
 require_relative "cart"
 require_relative "user"
@@ -15,59 +14,15 @@ class Customer < User
     @cart = Cart.new(self)
   end
 
-  def shopping(store)
-    return if store.items.empty?
-    store.print_stock
-    puts "商品番号を入力してください"
-    number = gets.to_i
-    puts "商品数量を入力してください"
-    quantity = gets.to_i
-    store.stock.find{|stock| stock[:index] == number }[:items][0..quantity-1]
-    cart.add(items[number], quantity)
-    puts "カートの中身を確認しますか？(yes/no)"
-    cart.print_contents if gets.chomp == "yes"
-  end
-
-  # def shopping(items)
-  #   return if items.empty?
-  #   print_items(items)
-  #   puts "商品番号を入力してください"
-  #   number = gets.to_i
-  #   puts "商品数量を入力してください"
-  #   quantity = gets.to_i
-  #   cart.add(items[number], quantity)
-  #   puts "カートの中身を確認しますか？(yes/no)"
-  #   cart.print_contents if gets.chomp == "yes"
-  # end
-
-  def checkout
-    return if cart.contents.empty?
-    cart.print_contents
-    puts "購入を確定しますか？(yes/no)"
-    if gets.chomp == "yes"
-      cart.contents.each do |content|
-        wallet.withdraw_to(
-          content.item_price * content.quantity,
-          content.owner.wallet
-        )
-      end
+  def check_out
+    return false if wallet.balance < cart.total_amount
+    cart.items.each do |item|
+      money_to_pay = wallet.withdraw(item.price)
+      item.owner.wallet.deposit(money_to_pay)
+      item.owner = self
     end
-  end
-
-  private
-
-  def print_items(items)
-    puts "📜 商品リスト"
-    kosi = Kosi::Table.new({header: %w{番号, 商品名 金額}})
-    print kosi.render(
-      items.map.with_index do |item, index|
-        [
-          index,
-          item.name,
-          item.price
-        ]
-      end
-    )
+    cart.items.clear
+    true
   end
 
 end

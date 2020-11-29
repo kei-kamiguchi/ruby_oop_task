@@ -7,22 +7,13 @@ module ItemManager
     Item.all.select{|item| item.owner == self }
   end
 
-  def stock
-    items
-      .group_by{|item| { name: item.name, price: item.price } }
-      .map.with_index do |label_and_items, index|
-        {
-          number: index,
-          label: {
-            name: label_and_items[0][:name],
-            price: label_and_items[0][:price],
-          },
-          items: label_and_items[1],
-        }
-      end
+  def pick_items(number, quantity)
+    items = stock.find{|stock| stock[:number] == number }&.dig(:items)
+    return if items.nil? || items.size < quantity
+    items.slice(0, quantity)
   end
 
-  def print_stock
+  def items_list
     kosi = Kosi::Table.new({header: %w{番号 商品名 金額 数量}})
     print kosi.render(
       stock.map do |stock|
@@ -41,4 +32,22 @@ module ItemManager
 
   def trigger_delivery
   end
+
+  private
+
+  def stock
+    items
+      .group_by{|item| item.label }
+      .map.with_index do |label_and_items, index|
+        {
+          number: index,
+          label: {
+            name: label_and_items[0][:name],
+            price: label_and_items[0][:price],
+          },
+          items: label_and_items[1],
+        }
+      end
+  end
+
 end

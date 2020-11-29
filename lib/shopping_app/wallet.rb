@@ -16,10 +16,6 @@ class Wallet
     amount
   end
 
-  def withdraw_to(amount, wallet)
-    wallet.deposit(withdraw(amount))
-  end
-
   private
 
   def enough_balance?(amount)

@@ -23,12 +23,38 @@ customer.wallet.deposit(gets.chomp.to_i)
 puts "ショッピングを開始します"
 end_shopping = false
 while !end_shopping do
-  customer.shopping(store.items)
+  puts "📜 商品リスト"
+  store.items_list
+
+  puts "商品番号を入力してください"
+  number = gets.to_i
+
+  puts "商品数量を入力してください"
+  quantity = gets.to_i
+
+  items = store.pick_items(number, quantity)
+
+  items&.each{|item| customer.cart.add(item) }
+
+  puts "カートの中身を確認しますか？(yes/no)"
+  customer.cart.items_list if gets.chomp == "yes"
+  puts "合計金額: #{customer.cart.total_amount}"
+
   puts "買い物を終了しますか？(yes/no)"
   end_shopping = gets.chomp == "yes"
 end
 
-customer.checkout
+puts "購入を確定しますか？(yes/no)"
+customer.cart.items_list
+puts "合計金額: #{customer.cart.total_amount}"
+
+if customer.check_out
+  puts "購入完了"
+  customer.items_list
+else
+  puts "購入を正常に完了できませんでした"
+end
+
 binding.irb
 
 puts "終了"

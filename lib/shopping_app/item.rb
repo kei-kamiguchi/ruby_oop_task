@@ -21,4 +21,8 @@ class Item
     @@instances
   end
 
+  def label
+    { name: name, price: price }
+  end
+
 end
