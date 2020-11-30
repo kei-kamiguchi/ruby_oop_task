@@ -17,26 +17,26 @@ RSpec.describe Cart do
     it "@ownerを持つこと" do
       expect(cart.instance_variable_get(:@owner)).to be_truthy
     end
-    it "@contentsを持つこと" do
-      expect(cart.instance_variable_get(:@contents)).to be_truthy
+    it "@itemsを持つこと" do
+      expect(cart.instance_variable_get(:@items)).to be_truthy
     end
   end
 
   describe "#items" do
-    it "@contentsを返すこと（ItemManager#itemsをオーバーライドしている）" do
-      expect(cart.items).to eq cart.instance_variable_get(:@contents)
+    it "@itemsを返すこと（ItemManager#itemsをオーバーライドしている）" do
+      expect(cart.items).to eq cart.instance_variable_get(:@items)
     end
   end
 
   describe "#add(item)" do
-    it "@contentsに格納されること" do
+    it "@itemsに格納されること" do
       cart.add(item)
-      expect(cart.instance_variable_get(:@contents).include?(item)).to eq true
+      expect(cart.instance_variable_get(:@items).include?(item)).to eq true
     end
   end
 
   describe "#total_amount" do
-    it "@contentsに格納されているItemオブジェクトの値段の合計を返すこと" do
+    it "@itemsに格納されているItemオブジェクトの値段の合計を返すこと" do
       cart.add(item)
       expect(cart.total_amount).to eq item.price
     end
@@ -52,16 +52,21 @@ RSpec.describe Cart do
       expect(seller.wallet.balance == 0).to eq true
 
       cart.add(item)
-      cart.check_out
     end
     it "カートの中身（Cart#items）のすべてのアイテムの購入金額が、カートのオーナーのウォレットからアイテムのオーナーのウォレットに移されること" do
-      expect(customer.wallet.balance == balance - item.price).to eq true 
-      expect(seller.wallet.balance == item.price).to eq true 
+      total_amount = cart.total_amount
+      cart.check_out
+      expect(customer.wallet.balance == (balance - total_amount)).to eq true 
+      expect(seller.wallet.balance == total_amount).to eq true 
     end
     it "カートの中身（Cart#items）のすべてのアイテムのオーナー権限が、カートのオーナーに移されること" do
-      expect(item.owner == customer).to eq true
+      items = cart.items
+      cart.check_out
+      expect(items.all?{|item| item.owner == customer }).to eq true
     end
     it "カートの中身（Cart#items）が空になること" do
+      expect(cart.items != []).to eq true 
+      cart.check_out
       expect(cart.items == []).to eq true 
     end
   end
